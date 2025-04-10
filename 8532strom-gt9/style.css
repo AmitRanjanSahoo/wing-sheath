@@ -51,8 +51,9 @@ body
 	background-color: rgb(23,25,24);
 	width: 60%;
 	margin: 0 auto;
-	padding: 7px;
+	padding: 30px;
 	border-radius: 4px;
+	padding-top: 15px;
 }
 
 #writen h3
@@ -82,4 +83,49 @@ body
 }
 #content.show {
 	opacity: 1;
+}
+#add-content {
+	height: auto;
+	width: 70%;
+	margin: auto;
+	padding-top: 10%;
+}
+#new-content {
+	width: 50%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	background-color: rgb(66, 66, 66);
+	color: rgb(95, 95, 95);
+	margin-top: auto;
+	height: auto;
+	border-radius: 5px;
+}
+#form-one {
+	width: 50%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	left: 100%;
+	top: 100%;
+}
+#form-one #text-box{
+	border-radius: 5px;
+	width: 50%;
+	margin: 0 auto;
+	color: black;
+	border: none;
+	background-color: rgb(95,95,95);
+}
+#button-one, #button-two {
+	background-color: rgb(66, 66, 66);
+	color: white;
+	width: 20%;
+	border: none;
+	margin: auto;
 }
