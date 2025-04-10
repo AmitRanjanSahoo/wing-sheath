@@ -28,10 +28,11 @@ function saveInfo() {
     newParagraph.textContent = ele.value; // Set the content safely
 
     // Append the new paragraph to #new-content
-    newContent.appendChild(newParagraph);
-
-    // Clear the text box
-    ele.value = "";
+    if(ele.value != "") { 
+        newContent.appendChild(newParagraph);
+        // Clear the text box
+        ele.value = "";
+    }
     // Create and append the <br> after the paragraph
     //var lineBreak = document.createElement("br");
     //newContent.appendChild(lineBreak);
