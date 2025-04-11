@@ -21,7 +21,7 @@ This is a sample project made for learning and fun modifications. This site for 
 - JS.
 - Images.
 
-### Licence 
+### Copyright 
 
 All copyright reserved to the author.
 This site can be used for reference as learning of codes.
