@@ -1,7 +1,7 @@
 # wing-sheath
 The Science lover's website!
 
-##Description
+## Description
 This is a sample project made for learning and fun modifications. This site for now is serving as a sample site with not much functionality. The future of this site is intended to be the follower of science and technology.
 
 ## Features
