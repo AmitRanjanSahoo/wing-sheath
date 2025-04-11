@@ -28,7 +28,7 @@ function saveInfo() {
     newParagraph.textContent = ele.value; // Set the content safely
 
     // Append the new paragraph to #new-content
-    if(ele.value != "") { 
+    if(ele.value != " ") { 
         newContent.appendChild(newParagraph);
         // Clear the text box
         ele.value = "";
