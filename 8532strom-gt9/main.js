@@ -45,3 +45,7 @@ function deletInfo() {
     var containing = document.querySelector("#new-content");
     containing.innerHTML = "";
 }
+
+function changeMode() {
+    document.body.classList.toggle("dark");
+}
