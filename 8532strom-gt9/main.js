@@ -23,12 +23,11 @@ function saveInfo() {
     var ele = document.querySelector("#text-box");
     var newContent = document.querySelector("#new-content");
 
-    // Create a new <p> element
-    var newParagraph = document.createElement("p");
-    newParagraph.textContent = ele.value; // Set the content safely
-
     // Append the new paragraph to #new-content
-    if(ele.value != " ") { 
+    if(ele.value.trim() != "") { 
+        // Create a new <p> element
+        var newParagraph = document.createElement("p");
+        newParagraph.textContent = ele.value; // Set the content safely
         newContent.appendChild(newParagraph);
         // Clear the text box
         ele.value = "";
