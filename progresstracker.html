@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Persistent Day Progress Tracker</title>
+  <title>Hourly Progress Tracker</title>
   <style>
     body {
       font-family: sans-serif;
@@ -26,7 +26,7 @@
 
     #progress-bar {
       height: 100%;
-      background: linear-gradient(90deg, #4caf50, #81c784);
+      background: linear-gradient(90deg, #2196f3, #64b5f6);
       width: 0%;
       transition: width 0.5s;
     }
@@ -40,14 +40,14 @@
 </head>
 <body>
 
-  <h2>Day Progress Tracker</h2>
+  <h2>Hourly Progress Tracker</h2>
 
-  <label>Start Date:
-    <input type="date" id="start-date">
+  <label>Start Date & Time:
+    <input type="datetime-local" id="start-datetime">
   </label>
 
-  <label>End Date:
-    <input type="date" id="end-date">
+  <label>End Date & Time:
+    <input type="datetime-local" id="end-datetime">
   </label>
 
   <button onclick="saveAndCalculateProgress()">Save & Update</button>
@@ -60,41 +60,42 @@
 
   <script>
     function saveAndCalculateProgress() {
-      const start = document.getElementById("start-date").value;
-      const end = document.getElementById("end-date").value;
+      const start = document.getElementById("start-datetime").value;
+      const end = document.getElementById("end-datetime").value;
 
       if (!start || !end || new Date(start) >= new Date(end)) {
-        alert("Please select valid start and end dates.");
+        alert("Please select valid start and end date-times.");
         return;
       }
 
-      localStorage.setItem("progress_start", start);
-      localStorage.setItem("progress_end", end);
+      localStorage.setItem("progress_hourly_start", start);
+      localStorage.setItem("progress_hourly_end", end);
 
       calculateProgress();
     }
 
     function calculateProgress() {
-      const startVal = localStorage.getItem("progress_start");
-      const endVal = localStorage.getItem("progress_end");
+      const startVal = localStorage.getItem("progress_hourly_start");
+      const endVal = localStorage.getItem("progress_hourly_end");
 
       if (!startVal || !endVal) return;
 
-      document.getElementById("start-date").value = startVal;
-      document.getElementById("end-date").value = endVal;
+      document.getElementById("start-datetime").value = startVal;
+      document.getElementById("end-datetime").value = endVal;
 
-      const startDate = new Date(startVal);
-      const endDate = new Date(endVal);
-      const today = new Date();
-      const totalTime = endDate - startDate;
-      const elapsed = Math.min(Math.max(today - startDate, 0), totalTime);
-      const progressPercent = Math.round((elapsed / totalTime) * 100);
+      const start = new Date(startVal);
+      const end = new Date(endVal);
+      const now = new Date();
 
-      document.getElementById("progress-bar").style.width = `${progressPercent}%`;
-      document.getElementById("status").textContent = `Progress: ${progressPercent}%`;
+      const totalMs = end - start;
+      const elapsedMs = Math.min(Math.max(now - start, 0), totalMs);
+
+      const progress = Math.round((elapsedMs / totalMs) * 100);
+
+      document.getElementById("progress-bar").style.width = `${progress}%`;
+      document.getElementById("status").textContent = `Progress: ${progress}% (${(elapsedMs / 3600000).toFixed(1)} / ${(totalMs / 3600000).toFixed(1)} hours)`;
     }
 
-    // Load progress on page load
     window.addEventListener("load", calculateProgress);
   </script>
 
