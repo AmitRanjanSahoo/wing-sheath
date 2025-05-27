@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Date Progress Tracker</title>
+  <title>Persistent Day Progress Tracker</title>
   <style>
     body {
       font-family: sans-serif;
@@ -50,7 +50,7 @@
     <input type="date" id="end-date">
   </label>
 
-  <button onclick="calculateProgress()">Update Progress</button>
+  <button onclick="saveAndCalculateProgress()">Save & Update</button>
 
   <div id="progress-container">
     <div id="progress-bar"></div>
@@ -59,31 +59,43 @@
   <div id="status">Progress: 0%</div>
 
   <script>
+    function saveAndCalculateProgress() {
+      const start = document.getElementById("start-date").value;
+      const end = document.getElementById("end-date").value;
+
+      if (!start || !end || new Date(start) >= new Date(end)) {
+        alert("Please select valid start and end dates.");
+        return;
+      }
+
+      localStorage.setItem("progress_start", start);
+      localStorage.setItem("progress_end", end);
+
+      calculateProgress();
+    }
+
     function calculateProgress() {
-      const startDate = new Date(document.getElementById("start-date").value);
-      const endDate = new Date(document.getElementById("end-date").value);
+      const startVal = localStorage.getItem("progress_start");
+      const endVal = localStorage.getItem("progress_end");
+
+      if (!startVal || !endVal) return;
+
+      document.getElementById("start-date").value = startVal;
+      document.getElementById("end-date").value = endVal;
+
+      const startDate = new Date(startVal);
+      const endDate = new Date(endVal);
       const today = new Date();
-
-      if (isNaN(startDate) || isNaN(endDate)) {
-        alert("Please select both start and end dates.");
-        return;
-      }
-
-      if (startDate >= endDate) {
-        alert("End date must be after start date.");
-        return;
-      }
-
       const totalTime = endDate - startDate;
       const elapsed = Math.min(Math.max(today - startDate, 0), totalTime);
       const progressPercent = Math.round((elapsed / totalTime) * 100);
 
-      const bar = document.getElementById("progress-bar");
-      const status = document.getElementById("status");
-
-      bar.style.width = `${progressPercent}%`;
-      status.textContent = `Progress: ${progressPercent}%`;
+      document.getElementById("progress-bar").style.width = `${progressPercent}%`;
+      document.getElementById("status").textContent = `Progress: ${progressPercent}%`;
     }
+
+    // Load progress on page load
+    window.addEventListener("load", calculateProgress);
   </script>
 
 </body>
