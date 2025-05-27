@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Date Progress Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    label, input {
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    #progress-container {
+      background: #ddd;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 30px;
+      margin-top: 1rem;
+    }
+
+    #progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #4caf50, #81c784);
+      width: 0%;
+      transition: width 0.5s;
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Day Progress Tracker</h2>
+
+  <label>Start Date:
+    <input type="date" id="start-date">
+  </label>
+
+  <label>End Date:
+    <input type="date" id="end-date">
+  </label>
+
+  <button onclick="calculateProgress()">Update Progress</button>
+
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  <div id="status">Progress: 0%</div>
+
+  <script>
+    function calculateProgress() {
+      const startDate = new Date(document.getElementById("start-date").value);
+      const endDate = new Date(document.getElementById("end-date").value);
+      const today = new Date();
+
+      if (isNaN(startDate) || isNaN(endDate)) {
+        alert("Please select both start and end dates.");
+        return;
+      }
+
+      if (startDate >= endDate) {
+        alert("End date must be after start date.");
+        return;
+      }
+
+      const totalTime = endDate - startDate;
+      const elapsed = Math.min(Math.max(today - startDate, 0), totalTime);
+      const progressPercent = Math.round((elapsed / totalTime) * 100);
+
+      const bar = document.getElementById("progress-bar");
+      const status = document.getElementById("status");
+
+      bar.style.width = `${progressPercent}%`;
+      status.textContent = `Progress: ${progressPercent}%`;
+    }
+  </script>
+
+</body>
+</html>
